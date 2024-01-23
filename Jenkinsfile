@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    image: docker:19.03.12
-     environment {
-		DOCKERHUB_CREDENTIALS=credentials('docker-hub')
-	}
-    
+    agent {
+        docker {
+            image 'docker:19.03.12'
+        }
+    }
     stages {
 
         stage('Checkout') {
@@ -35,5 +35,5 @@ pipeline {
             }
         }
     }
+    
 }
-  
