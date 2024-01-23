@@ -1,23 +1,3 @@
-# Use a minimal base image for building
-FROM gradle:7.3.3-jdk11 AS build
-
-# Set the working directory
-WORKDIR /app
-
-# Copy only the build files needed for dependency resolution
-COPY build.gradle settings.gradle ./
-
-# Download and resolve dependencies using the Gradle Wrapper
-COPY gradlew .
-COPY gradle gradle
-RUN ./gradlew dependencies
-
-# Copy the rest of the source code
-COPY . .
-
-# Build the application using the Gradle Wrapper
-RUN ./gradlew build --stacktrace
-
 # Use the official Gradle image as the build environment
 FROM gradle:7.3.3-jdk11 AS build
 
