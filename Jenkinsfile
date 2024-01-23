@@ -1,10 +1,6 @@
 pipeline {
     agent any
-    agent {
-        docker {
-            image 'docker:19.03.12'
-        }
-    }
+
     stages {
 
         stage('Checkout') {
