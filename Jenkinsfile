@@ -1,10 +1,11 @@
 pipeline {
     agent any
     environment {
-        OPENSHIFT_PROJECT = 'nti'
+        OPENSHIFT_PROJECT = 'nti-java'
         OPENSHIFT_SERVER = 'https://api.ocpuat.devopsconsulting.org:6443'
         APP_PORT = '8080'
-        APP_HOST_NAME = 'spring-boot-app.apps.ocpuat.devopsconsulting.org'
+        APP_SERVICE_NAME = 'java-boot-app
+        APP_HOST_NAME = 'java-boot-app.apps.ocpuat.devopsconsulting.org'
     }
     stages {
 
@@ -41,8 +42,14 @@ pipeline {
                     withCredentials([string(credentialsId: 'openshift', variable: 'OPENSHIFT_SECRET')]) {
                         sh "oc login --token=\${OPENSHIFT_SECRET} \${OPENSHIFT_SERVER} --insecure-skip-tls-verify"
                     }
-                    sh "oc project elsayed"
-                    sh "oc apply -f  deployment.ymln --kubeconfig=${OPENSHIFT_SECRET} -n elsayed" 
+                    sh "oc project \${OPENSHIFT_PROJECT}"    
+                    sh "oc new-app 10103040/java-test:latest"
+                    sh "oc create route edge --service \${APP_SERVICE_NAME} --port \${APP_PORT} --hostname \${APP_HOST_NAME} --insecure-policy Redirect"
+
+
+
+                    //sh "oc project elsayed"
+                    //sh "oc apply -f  deployment.ymln --kubeconfig=${OPENSHIFT_SECRET} -n elsayed" 
                    
                 }
             }
