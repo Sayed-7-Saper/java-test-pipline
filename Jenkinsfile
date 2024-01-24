@@ -37,7 +37,7 @@ pipeline {
                         sh "oc login --token=\${OPENSHIFT_SECRET} \${OPENSHIFT_SERVER} --insecure-skip-tls-verify"
                     }
                     sh "oc project elsayed"
-                    sh "oc apply -f  deployment.yml"
+                    sh "oc apply -f  deployment.ymln --kubeconfig=${OPENSHIFT_SECRET} -n elsayed" 
                    
                 }
             }
