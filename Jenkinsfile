@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Build your Docker image here
-                sh 'docker build -t java-test .'
+                sh 'docker build -t java-test:latest .'
             }
         }
        
@@ -37,7 +37,7 @@ pipeline {
                         sh "oc login --token=\${OPENSHIFT_SECRET} \${OPENSHIFT_SERVER} --insecure-skip-tls-verify"
                     }
                     sh "oc project elsayed"
-                    sh "oc apply -f ./deployment.yml"
+                    sh "oc apply -f  deployment.yml"
                    
                 }
             }
