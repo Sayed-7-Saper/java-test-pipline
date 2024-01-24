@@ -30,6 +30,18 @@ pipeline {
                 }
             }
         }
+         stage('Deploy to OpenShift') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'openshift', variable: 'OPENSHIFT_SECRET')]) {
+                        sh "oc login --token=\${OPENSHIFT_SECRET} \${OPENSHIFT_SERVER} --insecure-skip-tls-verify"
+                    }
+                    sh "oc project elsayed"
+                    sh "oc apply -f ./deployment.yml"
+                   
+                }
+            }
+        }
     }
     
 }
