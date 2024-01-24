@@ -1,6 +1,11 @@
 pipeline {
     agent any
-
+    environment {
+        OPENSHIFT_PROJECT = 'nti'
+        OPENSHIFT_SERVER = 'https://api.ocpuat.devopsconsulting.org:6443'
+        APP_PORT = '8080'
+        APP_HOST_NAME = 'spring-boot-app.apps.ocpuat.devopsconsulting.org'
+    }
     stages {
 
         stage('Checkout') {
