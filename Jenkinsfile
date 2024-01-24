@@ -4,7 +4,7 @@ pipeline {
         OPENSHIFT_PROJECT = 'nti-java'
         OPENSHIFT_SERVER = 'https://api.ocpuat.devopsconsulting.org:6443'
         APP_PORT = '8080'
-        APP_SERVICE_NAME = 'java-boot-app
+        APP_SERVICE_NAME = 'java-boot-app'
         APP_HOST_NAME = 'java-boot-app.apps.ocpuat.devopsconsulting.org'
     }
     stages {
