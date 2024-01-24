@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-test
+  namespace: elsayed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-test
+  template:
+    metadata:
+      labels:
+        app: java-test
+    spec:
+      containers:
+        - name: java-container
+          image: docker.io/10103040/java-test:latest
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-app-java
+  namespace: elsayed
+spec:
+  selector:
+    app: java-test
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
+
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: java-test
+  namespace: elsayed
+spec:
+  to:
+    kind: Service
+    name: svc-app-java
+  port:
+    targetPort: 8080
+  wildcardPolicy: None
